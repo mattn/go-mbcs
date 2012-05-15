@@ -63,7 +63,7 @@ func SetLocale(cat int, loc string) string {
 }
 
 func WcsToMbs(wcs string) ([]byte, uint) {
-	wcs32 := ([]int)(wcs)
+	wcs32 := ([]rune)(wcs)
 	var wcs16 []uint16 = make([]uint16, len(wcs32)+1)
 	for n, c := range wcs32 {
 		wcs16[n] = uint16(c)
@@ -100,9 +100,9 @@ func MbsToWcs(mbs []byte) (string, uint) {
 		uintptr(unsafe.Pointer(&mbs[0])),
 		uintptr(l),
 		0)
-	var wcs32 []int = make([]int, len(wcs16))
+	var wcs32 []rune = make([]rune, len(wcs16))
 	for n, c := range wcs16 {
-		wcs32[n] = int(c)
+		wcs32[n] = rune(c)
 	}
 	return string(wcs32), uint(r)
 }
